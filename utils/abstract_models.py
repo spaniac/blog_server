@@ -5,8 +5,8 @@ from django.db import models
 
 class BaseModel(models.Model):
     id = models.BigAutoField(primary_key=True)
-    created_at = models.DateTimeField(default=datetime.now(), null=False, blank=False, auto_now_add=True)
-    updated_at = models.DateTimeField(default=datetime.now(), null=False, blank=False, auto_now=True)
+    created_at = models.DateTimeField(null=False, blank=False, auto_now_add=True)
+    updated_at = models.DateTimeField(null=False, blank=False, auto_now=True)
 
     class Meta:
         abstract = True

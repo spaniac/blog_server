@@ -27,13 +27,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# REST Framework Configurations
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Application definition
-CUSTOM_APPS = [
+CUSTOM_APP = [
+    'blog.apps.AppsConfig',
+]
+
+LIBRARY = [
     'rest_framework',
     'werkzeug',
     'django_extensions',
-    'django_redis'
+    'django_redis',
 ]
 
 INSTALLED_APPS = [
@@ -43,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-] + CUSTOM_APPS
+] + LIBRARY + CUSTOM_APP
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
