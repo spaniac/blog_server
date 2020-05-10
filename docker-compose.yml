@@ -1,0 +1,46 @@
+version: '3'
+
+volumes:
+  db_mount: {}
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_mount:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    command:
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  cache:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/Dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MYSQL_HOST=db
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    expose:
+      - "6379"
+    command:
+      python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - cache
+
+  django2:
