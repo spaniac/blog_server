@@ -19,7 +19,7 @@ class SoftDeleteModel(BaseModel):
     class Meta:
         abstract = True
 
-    def soft_delete(self):
-        self.is_deleted = True
-        self.deleted_at = datetime.now()
-        self.save()
+    # def soft_delete(self):
+    #     self.is_deleted = True
+    #     self.deleted_at = datetime.now()
+    #     self.save()
